@@ -1,5 +1,11 @@
 import React, {useState, useEffect, use} from "react";
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
+
+
 function ListaCarros() {
     const [carros, setCarros] = useState([]);
     useEffect(() => {
@@ -12,20 +18,26 @@ function ListaCarros() {
             });
     }, []);
 
-    const lista = carros.map((carro) =>
-        <div key={carro.id} >
-            <p>{carro.Marca}</p>
-            <p>Marca: {carro.modelo}</p>
-            <p>Ano: {carro.ano}</p>
-            <p>Cor: {carro.kms}</p>
-            <img src={carro.img} />
-        </div>
-    );
+
 
     return (
-        <>
-            {lista}
-        </>
+        <Container className="py-5">
+            <Row>
+                {carros.map((carro, index) => (
+                    <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
+                        <Card className="h-100 shadow-sm">
+                            <Card.Body>
+                                <Card.Img variant="top" src={carro.img} alt={carro.marca+carro.modelo} />
+                                <Card.Title>{carro.marca+carro.modelo}</Card.Title>
+                                <Card.Text>{carro.ano}</Card.Text>
+                                <Card.Text>{carro.kms+" kms"}</Card.Text>
+                                </Card.Body>
+                        </Card>
+                    </Col>
+                ))}
+            </Row>
+        </Container>
+    
     );
 }
 
